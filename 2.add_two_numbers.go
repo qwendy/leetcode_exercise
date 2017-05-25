@@ -16,30 +16,23 @@ func NewListNode(val int, next *ListNode) *ListNode {
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	head := &ListNode{}
 	p := head
-	l1 = reverseList(l1)
-	l2 = reverseList(l2)
 	carry := 0
-	for l1 != nil && l2 != nil {
-		p.Next = NewListNode((carry+l1.Val+l2.Val)%10, nil)
-		carry = (l1.Val + l2.Val) / 10
+	for l1 != nil || l2 != nil {
+		if l1 != nil {
+			carry = carry + l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			carry = carry + l2.Val
+			l2 = l2.Next
+		}
+		p.Next = NewListNode(carry%10, nil)
+		carry = carry / 10
 		p = p.Next
-		l1 = l1.Next
-		l2 = l2.Next
-	}
-	for l1 != nil {
-		p.Next = NewListNode(l1.Val+carry, nil)
-		p = p.Next
-		l1 = l1.Next
-	}
-	for l2 != nil {
-		p.Next = NewListNode(l2.Val+carry, nil)
-		p = p.Next
-		l2 = l2.Next
 	}
 	if carry != 0 {
 		p.Next = NewListNode(carry, nil)
 	}
-
 	return head.Next
 }
 func reverseList(l *ListNode) (head *ListNode) {

@@ -53,7 +53,7 @@ func Test_addTwoNumbers(t *testing.T) {
 	l3 := makeList(s3)
 	l4 := makeList([]int{1, 8})
 	l5 := makeList([]int{0})
-	l6 := makeList([]int{8, 1})
+	l6 := makeList([]int{1, 8})
 	type args struct {
 		l1 *ListNode
 		l2 *ListNode
@@ -85,10 +85,10 @@ func Test_addTwoNumbers(t *testing.T) {
 			for got != nil {
 				if got.Val != tt.want.Val {
 					t.Errorf("error")
-					got = got.Next
-					tt.want = tt.want.Next
 					return
 				}
+				got = got.Next
+				tt.want = tt.want.Next
 			}
 		})
 	}
