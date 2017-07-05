@@ -15,11 +15,32 @@ package leetcode
 
 // The median is (2 + 3)/2 = 2.5
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
-	result := float64(0)
-	nums3 := make([]int, len(nums1)+len(nums2))
+	l := len(nums1) + len(nums2)
+	nums3 := make([]int, l)
 	i := 0
 	j := 0
+	k := 0
 	for i < len(nums1) || j < len(nums2) {
-
+		switch {
+		case i < len(nums1) && j < len(nums2):
+			if nums1[i] < nums2[j] {
+				nums3[k] = nums1[i]
+				i++
+			} else {
+				nums3[k] = nums2[j]
+				j++
+			}
+		case i < len(nums1):
+			nums3[k] = nums1[i]
+			i++
+		case j < len(nums2):
+			nums3[k] = nums2[j]
+			j++
+		}
+		k++
 	}
+	if l%2 == 0 {
+		return float64(nums3[l/2-1]+nums3[l/2]) / 2.0
+	}
+	return float64(nums3[l/2])
 }
