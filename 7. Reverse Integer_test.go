@@ -11,11 +11,29 @@ func Test_reverse(t *testing.T) {
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
 		{
 			args: args{
 				x: 321,
 			},
+			want: 123,
+		},
+		{
+			args: args{
+				x: 1143,
+			},
+			want: 3411,
+		},
+		{
+			args: args{
+				x: 10,
+			},
+			want: 1,
+		},
+		{
+			args: args{
+				x: -10,
+			},
+			want: -1,
 		},
 	}
 	for _, tt := range tests {

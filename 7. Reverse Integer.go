@@ -1,9 +1,6 @@
 package leetcode
 
-import (
-	"fmt"
-	"strconv"
-)
+import "strconv"
 
 // Reverse digits of an integer.
 
@@ -22,25 +19,24 @@ import (
 // Note:
 // The input is assumed to be a 32-bit signed integer. Your function should return 0 when the reversed integer overflows.
 func reverse(x int) int {
-	a := []byte(strconv.Itoa(x))
-	j := len(a) - 1
-	for index := 0; index < len(a)/2; index++ {
-		if index == 0 {
-			if a[index] == '-' {
-				a = a[1:]
-				j--
-			} else {
-				a = append([]byte{'-'}, a...)
-				j++
-			}
-			continue
-		}
-
-		tmp := a[index]
-		a[index] = a[j]
-		a[j] = tmp
-		j--
+	symbol := 1
+	if x < 0 {
+		x = -x
+		symbol = -1
 	}
-	fmt.Println(string(a))
-	return 0
+	a := strconv.Itoa(x)
+	b := make([]byte, len(a))
+	for index := len(a) - 1; index >= 0; index-- {
+		b[len(a)-1-index] = a[index]
+	}
+	result, err := strconv.Atoi(string(b))
+	if err != nil {
+		return 0
+	}
+	result = symbol * result
+	if result > 2147483647 || result < -2147483648 {
+		return 0
+	}
+
+	return result
 }
