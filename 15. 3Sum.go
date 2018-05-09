@@ -3,7 +3,9 @@
 package leetcode
 
 import (
+	"fmt"
 	"sort"
+	"strconv"
 )
 
 func threeSum(nums []int) [][]int {
@@ -12,25 +14,34 @@ func threeSum(nums []int) [][]int {
 	}
 	// sort
 	sort.Ints(nums)
+	fmt.Println(nums)
 	// iterate
 	n := len(nums)
 	r := make([][]int, 0)
+	m := make(map[string]bool, 0)
 	for i := 0; i < n-2; i++ {
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
-		for j := i + 1; j < n-1; j++ {
-			if j > i+1 && nums[j] == nums[j-1] {
-				continue
-			}
-			v := -(nums[i] + nums[j])
-			for k := n - 1; k > j; k-- {
-				if nums[k] == v {
-					r = append(r, []int{nums[i], nums[j], nums[k]})
+		sum := -nums[i]
+		j := i + 1
+		k := n - 1
+		for j < k {
+
+			switch {
+			case sum < nums[j]+nums[k]:
+				k--
+			case sum > nums[j]+nums[k]:
+				j++
+			default:
+				tmp := []int{nums[i], nums[j], nums[k]}
+				s := strconv.Itoa(tmp[0]) + "," + strconv.Itoa(tmp[1]) + "," + strconv.Itoa(tmp[2])
+				if _, ok := m[s]; !ok {
+					m[s] = true
+					r = append(r, tmp)
 				}
-				if nums[k] <= v {
-					break
-				}
+				j++
+				k--
 			}
 		}
 	}
