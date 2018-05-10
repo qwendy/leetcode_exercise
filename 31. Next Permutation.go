@@ -7,51 +7,43 @@ import (
 )
 
 func nextPermutation(nums []int) {
-	if len(nums) <= 1 {
+	n := len(nums)
+	if n < 2 {
 		return
 	}
-	n := len(nums)
-	xx := false
-	for i := n - 2; i > 0; i-- {
-		if ok, exchIndex := hasBiggerOne(i, nums); !ok {
-			if exchIndex != -1 {
-				tmp := nums[i-1]
-				nums[i-1] = nums[exchIndex]
-				nums[exchIndex] = tmp
-				sort.Ints(nums[i:])
-				return
-			}
+
+	index := n - 1
+	for index > 0 {
+		if nums[index] > nums[index-1] {
+			break
 		}
-		xx = true
+		index--
 	}
-	if !xx {
+	if index == 0 {
 		sort.Ints(nums)
 		return
 	}
-	tmp := nums[n-1]
-	nums[n-1] = nums[n-2]
-	nums[n-2] = tmp
+
+	exchangeIndex := minBiggerOne(index, nums)
+	swap(index-1, exchangeIndex, nums)
+	sort.Ints(nums[index:])
 }
 
-// 判断是否存在比此下标的数，返回这些数中最
-func hasBiggerOne(index int, nums []int) (bool, int) {
-	source := nums[index]
-	standard := math.MaxInt64
-	if index > 0 {
-		standard = nums[index-1]
+func swap(i, j int, nums []int) {
+	tmp := nums[i]
+	nums[i] = nums[j]
+	nums[j] = tmp
+}
 
-	}
+func minBiggerOne(index int, nums []int) int {
+	standard := nums[index-1]
 	min := math.MaxInt64
 	minIndex := -1
-	ok := false
 	for i := index; i < len(nums); i++ {
-		if nums[i] > source {
-			ok = true
-		}
-		if standard < nums[i] && min > nums[i] {
+		if nums[i] > standard && nums[i] < min {
 			min = nums[i]
 			minIndex = i
 		}
 	}
-	return ok, minIndex
+	return minIndex
 }
