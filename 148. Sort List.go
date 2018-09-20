@@ -4,43 +4,49 @@ package leetcode
 import "fmt"
 
 func sortList(head *ListNode) *ListNode {
-	headPre := &ListNode{
-		Next: head,
-	}
-	return headPre.Next
-}
-func sortChild(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	headPre := &ListNode{
-		Next: head,
-	}
-	first := head
-	second := head.Next
-	for first != nil && second != nil {
-		first = first.Next
-		second = head.Next.Next
-	}
+	l2 := split(head)
+
+	return mergeList(sortList(head), sortList(l2))
 }
 
-func mergeList(l1 *ListNode, l2 *ListNode) *ListNode {
-	headPre := &ListNode{
-		Next: l1,
+func split(head *ListNode) *ListNode {
+	slow, fast := head, head
+	var tail *ListNode
+	for fast != nil && fast.Next != nil {
+		tail = slow
+		slow = slow.Next
+		fast = fast.Next.Next
 	}
-	pre := headPre
-	next := l1
-	for l2 != nil {
-		t := l2
-		l2 = l2.Next
-		for next != nil && next.Val < t.Val {
-			pre = next
-			next = next.Next
+	tail.Next = nil
+	return slow
+}
+
+func mergeList(left, right *ListNode) *ListNode {
+	var head, cur, pre *ListNode
+	for left != nil && right != nil {
+		if left.Val < right.Val {
+			cur = left
+			left = left.Next
+		} else {
+			cur = right
+			right = right.Next
 		}
-		pre.Next = t
-		t.Next = next
+		if head == nil {
+			head = cur
+		} else {
+			pre.Next = cur
+		}
+		pre = cur
 	}
-	return headPre.Next
+	if left == nil {
+		pre.Next = right
+	} else {
+		pre.Next = left
+	}
+	return head
 }
 
 func isListSorted(head *ListNode) bool {
