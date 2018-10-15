@@ -25,7 +25,7 @@ func TestTreeWayPartition(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotLeft, gotRight := TreeWayPartition(tt.args.nums, tt.args.mid)
+			gotLeft, gotRight := ThreeWayPartition(tt.args.nums, tt.args.mid)
 			if gotLeft != tt.wantLeft {
 				t.Errorf("TreeWayPartition() gotLeft = %v, want %v, nums: %v", gotLeft, tt.wantLeft, tt.args.nums)
 			}
