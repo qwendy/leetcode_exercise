@@ -19,12 +19,12 @@ func Test_findKthSmallest(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			args: args{
-				nums:  []int{5, 3, 2, 1, 4, 7, 8, 3},
-				k:     5,
+				nums:  []int{1},
+				k:     1,
 				left:  0,
-				right: 7,
+				right: 0,
 			},
-			want: 4,
+			want: 1,
 		},
 	}
 	for _, tt := range tests {

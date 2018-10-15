@@ -11,29 +11,29 @@ func wiggleSort(nums []int) {
 
 }
 
-// Kth smallest
+// Kth smallest. quick select
 func findKthSmallest(nums []int, k, left, right int) int {
 	if left >= right {
 		return nums[right]
 	}
 	rand.Seed(time.Now().UnixNano())
 	median := nums[rand.Intn(right-left+1)+left]
-	smaller, larger := threeWayPartition(nums, left, right, median)
+	smaller, larger := partition3way(nums, left, right, median)
 	fmt.Println(smaller, larger, median, left, right, nums)
 	switch {
 	case k-1 <= smaller:
-		findKthSmallest(nums, k, left, smaller)
+		return findKthSmallest(nums, k, left, smaller)
 	case k-1 >= larger:
-		findKthSmallest(nums, k, larger, right)
+		return findKthSmallest(nums, k, larger, right)
 	default:
 		return nums[k-1]
 	}
-	return nums[0]
+
 }
 
-func threeWayPartition(nums []int, left, right, median int) (smaller int, larger int) {
+func partition3way(nums []int, left, right, median int) (smaller int, larger int) {
 	i, j, k := left, right, left
-	for k <= right && k <= j {
+	for k <= j {
 		if nums[k] < median {
 			nums[k], nums[i] = nums[i], nums[k]
 			i++
