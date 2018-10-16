@@ -22,15 +22,15 @@ func Test_findKthSmallest(t *testing.T) {
 				nums:  []int{1, 5, 1, 1, 6, 4},
 				k:     5,
 				left:  0,
-				right: 7,
+				right: 5,
 			},
-			want: 4,
+			want: 1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := findKthSmallest(tt.args.nums, tt.args.k, tt.args.left, tt.args.right); got != tt.want {
-				t.Errorf("findKthSmallest() = %v, want %v", got, tt.want)
+			if got := findKthLargest(tt.args.nums, tt.args.k, tt.args.left, tt.args.right); got != tt.want {
+				t.Errorf("findKthLargest() = %v, want %v", got, tt.want)
 			}
 		})
 	}

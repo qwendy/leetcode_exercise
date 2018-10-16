@@ -8,13 +8,13 @@ import (
 )
 
 func wiggleSort(nums []int) {
-	median := findKthSmallest(nums, len(nums)/2, 0, len(nums)-1)
+	median := findKthLargest(nums, len(nums)/2, 0, len(nums)-1)
 	fmt.Println("median", median)
 	partition3wayV(nums, 0, len(nums)-1, median)
 }
 
 // Kth smallest. quick select
-func findKthSmallest(nums []int, k, left, right int) int {
+func findKthLargest(nums []int, k, left, right int) int {
 	if left >= right {
 		return nums[right]
 	}
@@ -23,9 +23,9 @@ func findKthSmallest(nums []int, k, left, right int) int {
 	smaller, larger := partition3way(nums, left, right, pivot)
 	switch {
 	case k-1 <= smaller:
-		return findKthSmallest(nums, k, left, smaller)
+		return findKthLargest(nums, k, left, smaller)
 	case k-1 >= larger:
-		return findKthSmallest(nums, k, larger, right)
+		return findKthLargest(nums, k, larger, right)
 	default:
 		return nums[k-1]
 	}
@@ -35,11 +35,11 @@ func findKthSmallest(nums []int, k, left, right int) int {
 func partition3way(nums []int, left, right, pivot int) (smaller int, larger int) {
 	i, j, k := left, right, left
 	for k <= j {
-		if nums[k] < pivot {
+		if nums[k] > pivot {
 			nums[k], nums[i] = nums[i], nums[k]
 			i++
 			k++
-		} else if nums[k] > pivot {
+		} else if nums[k] < pivot {
 			nums[k], nums[j] = nums[j], nums[k]
 			j--
 		} else {
