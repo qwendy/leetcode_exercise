@@ -25,7 +25,7 @@ func Test_findLongestWord(t *testing.T) {
 				s: "aewfafwafjlwajflwajflwafj",
 				d: []string{"apple", "ewaf", "awefawfwaf", "awef", "awefe", "ewafeffewafewf"},
 			},
-			want: "apple",
+			want: "ewaf",
 		},
 	}
 	for _, tt := range tests {
