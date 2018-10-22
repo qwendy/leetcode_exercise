@@ -1,7 +1,5 @@
 package practice
 
-import "fmt"
-
 func quicksort(nums []int, low, high int) {
 	if low >= high {
 		return
@@ -13,7 +11,6 @@ func quicksort(nums []int, low, high int) {
 }
 
 func quickPartition(nums []int, low, high int) int {
-	fmt.Println("xxx", low, high, nums)
 	i, j := low, high
 	v := nums[i]
 	for true {
