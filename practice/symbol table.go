@@ -61,10 +61,10 @@ func (st *symbolTable) getKeys() (ks []interface{}) {
 
 // Binary search
 func (st *symbolTable) rank(key interface{}) (index int) {
+	low, high := 0, st.N-1
 	switch k := key.(type) {
 	case int:
-		low, high := 0, st.N-1
-		for true {
+		for low <= high {
 			mid := low + (high-low)/2
 			v := st.keys[mid].(int)
 			if k < v {
@@ -76,5 +76,5 @@ func (st *symbolTable) rank(key interface{}) (index int) {
 			}
 		}
 	}
-	return index
+	return low
 }
