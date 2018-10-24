@@ -15,3 +15,7 @@ func IsSorted(array []int, order int) bool {
 	}
 	return true
 }
+
+type ComparableValue interface {
+	Compare(ComparableValue) bool
+}
