@@ -32,7 +32,7 @@ func (st *symbolTable) get(key interface{}) (value interface{}) {
 	if key == nil {
 		return nil
 	}
-	index := st.rank(key)
+	index := st.rankV2(key, 0, st.N-1)
 	if index < st.N && st.keys[index] == key {
 		return st.values[index]
 	}
@@ -65,7 +65,7 @@ func (st *symbolTable) rank(key interface{}) (index int) {
 
 	for low <= high {
 		mid := low + (high-low)/2
-		v := st.keys[mid].(int)
+		v := st.keys[mid]
 		r := Compare(key, v)
 		if r == -1 {
 			high = mid - 1
@@ -76,4 +76,21 @@ func (st *symbolTable) rank(key interface{}) (index int) {
 		}
 	}
 	return low
+}
+
+// recursion binary search
+func (st *symbolTable) rankV2(key interface{}, low, high int) (index int) {
+	if high < low {
+		return low
+	}
+	mid := low + (high-low)/2
+	v := st.keys[mid]
+	r := Compare(key, v)
+	if r == -1 {
+		return st.rankV2(key, low, mid-1)
+	} else if r == 1 {
+		return st.rankV2(key, mid+1, high)
+	} else {
+		return mid
+	}
 }

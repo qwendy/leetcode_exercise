@@ -18,10 +18,6 @@ func IsSorted(array []int, order int) bool {
 	return true
 }
 
-type ComparableValue interface {
-	Compare(ComparableValue) bool
-}
-
 // TODO: other type to be continued
 func Compare(a, b interface{}) int {
 	va := reflect.ValueOf(a)
