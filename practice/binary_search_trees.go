@@ -7,7 +7,9 @@ type node struct {
 	val   interface{}
 	left  *node
 	right *node
-	N     int
+
+	H int
+	N int
 }
 
 type binarySearchTree struct {
@@ -175,69 +177,4 @@ func (bst *binarySearchTree) isBST(x *node) bool {
 		return bst.isBST(x.right)
 	}
 	return true
-}
-
-func (bst *binarySearchTree) height(x *node) int {
-	if x == nil {
-		return 0
-	}
-	l := bst.height(x.left)
-	r := bst.height(x.right)
-	if l > r {
-		return l + 1
-	}
-	return r + 1
-}
-
-func (bst *binarySearchTree) balancePutNode(key, val interface{}, x *node) *node {
-	if x == nil {
-		return &node{key: key, val: val, N: 1}
-	}
-	r := Compare(key, x.key)
-	if r < 0 {
-		x.left = bst.balancePutNode(key, val, x.left)
-	} else if r > 0 {
-		x.right = bst.balancePutNode(key, val, x.right)
-	} else {
-		x.val = val
-	}
-	x.N = bst.size(x.left) + bst.size(x.right) + 1
-	lh := bst.height(x.left)
-	rh := bst.height(x.right)
-	if lh-rh >= 2 {
-		llh := bst.height(x.left.left)
-		lrh := bst.height(x.left.right)
-		if llh > lrh {
-
-		} else {
-
-		}
-	}
-	if rh-lh >= 2 {
-		rlh := bst.height(x.right.left)
-		rrh := bst.height(x.right.right)
-		if rlh > rrh {
-
-		} else {
-
-		}
-	}
-	return x
-}
-
-func (bst *binarySearchTree) rotateLL(x *node) *node {
-	t := x
-	x = t.left
-	x.left = t
-	t.left = nil
-	return x
-}
-func (bst *binarySearchTree) rotateLR(x *node) *node {
-	t := x
-	x = t.left.right
-	x.right = t
-	x.left = t.left
-	x.right.left = nil
-	x.left.right = nil
-	return x
 }

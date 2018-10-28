@@ -26,5 +26,4 @@ func Test_binarySearchTree_put(t *testing.T) {
 
 	fmt.Println("isBST:", bst.isBST(bst.root))
 
-	fmt.Println("height:", bst.height(bst.root))
 }
