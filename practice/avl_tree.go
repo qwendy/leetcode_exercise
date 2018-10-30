@@ -22,26 +22,59 @@ func (avl *avlTree) putNode(key, val interface{}, x *node) *node {
 	}
 
 	r := Compare(key, x.key)
-	if r < -1 {
-		avl.putNode(key, val, x)
-	} else if r > 1 {
-		avl.putNode(key, val, x)
+	if r == -1 {
+		x.left = avl.putNode(key, val, x.left)
+	} else if r == 1 {
+		x.right = avl.putNode(key, val, x.right)
 	} else {
 		x.val = val
 	}
-	max := func(a, b int) int {
-		if a > b {
-			return a
-		}
-		return b
-	}
-	x.H = max(avl.height(x.left), avl.height(x.right)) + 1
 
 	balance := avl.height(x.left) - avl.height(x.right)
-
-	// TODO:  left rotate
 	if balance > 1 && Compare(key, x.left.key) < -1 {
+		avl.leftRotate(x)
+	}
+	if balance > 1 && Compare(key, x.left.key) > 1 {
+		avl.rightRotate(x.left)
+		avl.leftRotate(x)
+	}
+	if balance < -1 && Compare(key, x.right.key) < -1 {
+		avl.leftRotate(x.right)
+		avl.rightRotate(x)
+	}
+	if balance < -1 && Compare(key, x.right.key) < -1 {
+		avl.rightRotate(x)
 	}
 
+	x.H = avl.max(avl.height(x.left), avl.height(x.right)) + 1
 	return x
+}
+
+func (avl *avlTree) leftRotate(y *node) *node {
+	x := y.left
+	t := x.right
+	x.right = y
+	y.left = t
+
+	y.H = avl.max(avl.height(y.left), avl.height(y.right)) + 1
+	x.H = avl.max(avl.height(x.left), avl.height(x.right)) + 1
+	return x
+}
+
+func (avl *avlTree) rightRotate(y *node) *node {
+	x := y.right
+	t := x.left
+	y = x.left
+	y.right = t
+
+	y.H = avl.max(avl.height(y.left), avl.height(y.right)) + 1
+	x.H = avl.max(avl.height(x.left), avl.height(x.right)) + 1
+	return x
+}
+
+func (avl *avlTree) max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

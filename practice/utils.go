@@ -1,6 +1,8 @@
 package practice
 
-import "reflect"
+import (
+	"reflect"
+)
 
 func IsSorted(array []int, order int) bool {
 	for i := 0; i < len(array)-1; i++ {
@@ -34,4 +36,24 @@ func Compare(a, b interface{}) int {
 		}
 	}
 	return 0
+}
+
+func PreOrder(array []interface{}, x *node) []interface{} {
+	if x == nil {
+		return array
+	}
+	array = append(array, x.key)
+	array = PreOrder(array, x.left)
+	array = PreOrder(array, x.right)
+	return array
+}
+
+func InOrder(array []interface{}, x *node) []interface{} {
+	if x == nil {
+		return array
+	}
+	array = InOrder(array, x.left)
+	array = append(array, x.key)
+	array = InOrder(array, x.right)
+	return array
 }
