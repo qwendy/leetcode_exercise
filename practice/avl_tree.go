@@ -29,8 +29,15 @@ func (avl *avlTree) putNode(key, val interface{}, x *node) *node {
 	} else {
 		x.val = val
 	}
+	x = avl.makeBalance(key, x)
+	x.H = avl.max(avl.height(x.left), avl.height(x.right)) + 1
+	return x
+}
+
+func (avl *avlTree) makeBalance(key interface{}, x *node) *node {
 
 	balance := avl.height(x.left) - avl.height(x.right)
+
 	if balance > 1 && Compare(key, x.left.key) < -1 {
 		avl.leftRotate(x)
 	}
@@ -45,8 +52,6 @@ func (avl *avlTree) putNode(key, val interface{}, x *node) *node {
 	if balance < -1 && Compare(key, x.right.key) < -1 {
 		avl.rightRotate(x)
 	}
-
-	x.H = avl.max(avl.height(x.left), avl.height(x.right)) + 1
 	return x
 }
 

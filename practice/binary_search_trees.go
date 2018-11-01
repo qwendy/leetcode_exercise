@@ -8,8 +8,9 @@ type node struct {
 	left  *node
 	right *node
 
-	H int
-	N int
+	H     int
+	N     int
+	color bool
 }
 
 type binarySearchTree struct {
