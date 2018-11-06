@@ -10,6 +10,9 @@ type redBlackBST struct {
 }
 
 func (rb *redBlackBST) isRed(x *node) bool {
+	if x == nil {
+		return false
+	}
 	return x.color
 }
 
@@ -63,24 +66,24 @@ func (rb *redBlackBST) putNode(key, val interface{}, x *node) *node {
 		x.val = val
 	}
 
-	x = rb.correct(x)
+	x = rb.balance(x)
 
 	rb.setHeight(x)
 	rb.setSize(x)
 	return x
 }
 
-func (rb *redBlackBST) correct(x *node) *node {
-	if x.right != nil && rb.isRed(x.right) {
+func (rb *redBlackBST) balance(x *node) *node {
+	if rb.isRed(x.right) && !rb.isRed(x.left) {
 		x = rb.leftRotate(x)
 	}
-	if x.left != nil && x.left.left != nil && rb.isRed(x.left) && rb.isRed(x.left.left) {
+	if rb.isRed(x.left) && rb.isRed(x.left.left) {
 		x = rb.rightRotate(x)
 	}
-	if x.right != nil && x.left != nil && rb.isRed(x.left) && rb.isRed(x.right) {
+	// 双红， 则翻转颜色
+	if rb.isRed(x.left) && rb.isRed(x.right) {
 		x = rb.flipColor(x)
 	}
-
 	return x
 }
 
@@ -90,8 +93,9 @@ func (rb *redBlackBST) rightRotate(y *node) *node {
 	x.right = y
 	y.left = t
 
+	c := y.color
 	y.color = x.color
-	x.color = RED
+	x.color = c
 
 	rb.setHeight(y)
 	rb.setHeight(x)
@@ -107,8 +111,9 @@ func (rb *redBlackBST) leftRotate(x *node) *node {
 	y.left = x
 	x.right = t
 
+	c := x.color
 	x.color = y.color
-	y.color = RED
+	y.color = c
 
 	rb.setHeight(x)
 	rb.setHeight(y)
@@ -119,13 +124,16 @@ func (rb *redBlackBST) leftRotate(x *node) *node {
 }
 
 func (rb *redBlackBST) flipColor(x *node) *node {
+	if x == nil {
+		return x
+	}
+	x.color = !x.color
 	if x.left != nil {
-		x.color = BLACK
+		x.left.color = !x.left.color
 	}
 	if x.right != nil {
-		x.color = BLACK
+		x.right.color = !x.right.color
 	}
-	x.color = RED
 	return x
 }
 
@@ -148,4 +156,90 @@ func (rb *redBlackBST) setSize(x *node) {
 	rightSize := rb.size(x.right)
 
 	x.N = leftSize + rightSize + 1
+}
+
+func (rb *redBlackBST) delete(key interface{}) {
+	if rb.root == nil {
+		return
+	}
+	// 仿照不在root的时候的2-node情况，归一化处理
+	if !rb.isRed(rb.root.left) && !rb.isRed(rb.root.right) {
+		rb.root.color = RED
+	}
+	rb.root = rb.deleteNode(key, rb.root)
+	if rb.root != nil {
+		rb.root.color = BLACK
+	}
+}
+
+func (rb *redBlackBST) deleteNode(key interface{}, x *node) *node {
+	if x == nil {
+		return nil
+	}
+	r := Compare(key, x.key)
+	if r < 0 {
+		if x.left == nil {
+			return nil
+		}
+		// 当left node为RED时， 下一个节点仍处于3-node中，不需要变化。反之，确定下一个节点为2-node则需要变化
+		if !rb.isRed(x.left) && !rb.isRed(x.left.left) {
+			rb.moveRedLeft(x)
+		}
+		x.left = rb.deleteNode(key, x.left)
+	} else {
+		// 旋转，不论是删除本节点还是下一个（右）节点，都确定处于3-node中
+		if rb.isRed(x.left) {
+			rb.rightRotate(x)
+		}
+		if r == 0 && x.right == nil {
+			return nil
+		}
+		if r == 0 {
+			minNode := rb.min(x.right)
+			x.key, x.val = minNode.key, minNode.val
+			x.right = rb.deleteNode(minNode.key, x.right)
+			return x
+		}
+		if x.right == nil {
+			return nil
+		}
+		if !rb.isRed(x.right) && !rb.isRed(x.right.left) {
+			rb.moveRedRight(x)
+		}
+		x.right = rb.deleteNode(key, x.right)
+	}
+	rb.balance(x)
+	return x
+}
+
+func (rb *redBlackBST) moveRedLeft(x *node) *node {
+	if x == nil {
+		return nil
+	}
+	rb.flipColor(x)
+	if rb.isRed(x.right.left) {
+		x.right = rb.rightRotate(x.right)
+		x = rb.leftRotate(x)
+	}
+	return x
+}
+func (rb *redBlackBST) moveRedRight(x *node) *node {
+	if x == nil {
+		return nil
+	}
+	rb.flipColor(x)
+	if rb.isRed(x.left.left) {
+		x = rb.rightRotate(x)
+	}
+	return x
+}
+
+func (rb *redBlackBST) min(x *node) *node {
+	if x == nil {
+		return nil
+	}
+	for x.left != nil {
+		x = x.left
+	}
+	return x
 }
