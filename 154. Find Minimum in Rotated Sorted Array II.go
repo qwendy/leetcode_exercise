@@ -1,4 +1,4 @@
-package leetcode
+package practice
 
 func findMin_154(nums []int) int {
 	start, end := 0, len(nums)-1

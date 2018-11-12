@@ -1,5 +1,5 @@
 // 75. Sort Colors
-package leetcode
+package practice
 
 func sortColors(nums []int) {
 	left := -1

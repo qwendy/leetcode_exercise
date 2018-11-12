@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/wiggle-sort-ii/description/
-package leetcode
+package practice
 
 import (
 	"fmt"

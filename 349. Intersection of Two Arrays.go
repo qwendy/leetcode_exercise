@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/intersection-of-two-arrays/description/
-package leetcode
+package practice
 
 func intersection(nums1 []int, nums2 []int) []int {
 	r := make([]int, 0)

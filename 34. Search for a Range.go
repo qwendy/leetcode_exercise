@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/search-for-a-range/description/
-package leetcode
+package practice
 
 func searchRange(nums []int, target int) []int {
 	n := len(nums)

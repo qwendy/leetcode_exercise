@@ -1,4 +1,4 @@
-package leetcode
+package practice
 
 func searchInsert(nums []int, target int) int {
 	return quickFind(nums, 0, len(nums)-1, target)

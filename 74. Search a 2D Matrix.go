@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/search-a-2d-matrix/description/
-package leetcode
+package practice
 
 func searchMatrix(matrix [][]int, target int) bool {
 	m := len(matrix)

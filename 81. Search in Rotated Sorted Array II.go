@@ -1,4 +1,4 @@
-package leetcode
+package practice
 
 func search_81(nums []int, target int) bool {
 	if len(nums) == 0 {

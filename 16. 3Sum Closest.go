@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/3sum-closest/description/
-package leetcode
+package practice
 
 import (
 	"math"

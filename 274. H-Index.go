@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/h-index/description/
-package leetcode
+package practice
 
 import (
 	"sort"

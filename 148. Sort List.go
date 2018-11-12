@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/sort-list/description/
-package leetcode
+package practice
 
 import "fmt"
 

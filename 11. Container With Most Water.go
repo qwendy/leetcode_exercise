@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/container-with-most-water/description/
-package leetcode
+package practice
 
 func maxArea(height []int) int {
 	area := 0

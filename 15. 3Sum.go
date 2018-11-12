@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/3sum/description/
 
-package leetcode
+package practice
 
 import (
 	"fmt"

@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/next-permutation/description/
-package leetcode
+package practice
 
 import (
 	"math"

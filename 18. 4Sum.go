@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/4sum/description/
-package leetcode
+package practice
 
 import (
 	"fmt"

@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/largest-number/description/
-package leetcode
+package practice
 
 import (
 	"bytes"

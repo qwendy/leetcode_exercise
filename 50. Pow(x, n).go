@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/powx-n/description/
-package leetcode
+package practice
 
 // func myPow(x float64, n int) float64 {
 // 	result := float64(1)

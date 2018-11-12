@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/description/
-package leetcode
+package practice
 
 func findLongestWord(s string, d []string) string {
 

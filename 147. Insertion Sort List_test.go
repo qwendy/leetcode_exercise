@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/insertion-sort-list/description/
 
-package leetcode
+package practice
 
 import (
 	"fmt"

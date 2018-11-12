@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/divide-two-integers/description/
-package leetcode
+package practice
 
 import (
 	"math"

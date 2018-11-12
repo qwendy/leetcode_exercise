@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/merge-intervals/description/
-package leetcode
+package practice
 
 import "sort"
 

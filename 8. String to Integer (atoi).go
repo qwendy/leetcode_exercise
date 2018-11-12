@@ -1,4 +1,4 @@
-package leetcode
+package practice
 
 // Implement atoi to convert a string to an integer.
 
