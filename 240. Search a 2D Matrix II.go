@@ -1,6 +1,6 @@
 package practice
 
-func searchMatrix(matrix [][]int, target int) bool {
+func searchMatrix_240(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false
 	} else if len(matrix[0]) == 0 {
