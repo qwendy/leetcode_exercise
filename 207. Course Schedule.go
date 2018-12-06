@@ -1,19 +1,41 @@
 package practice
 
+const (
+	visited = 1
+	sorted  = 2
+)
+
 func canFinish(numCourses int, prerequisites [][]int) bool {
 	graph := makeGraph(numCourses, prerequisites)
-	inDegree := calInDegree(graph)
+	// inDegree := calInDegree(graph)
 	marked := make(map[int]int)
-	visited := 1
-	sorted := 2
-	dfs := func(c int) {
-		marked[c] = visited
-		for _, v := range graph[c] {
+	for i := 0; i < numCourses; i++ {
 
+		if !dfs(i, marked, graph) {
+			return false
 		}
 	}
+	return true
+}
 
-	return false
+func dfs(c int, marked map[int]int, graph [][]int) bool {
+
+	if status, ok := marked[c]; ok {
+		if status == sorted {
+			return true
+		}
+		if status == visited {
+			return false
+		}
+	}
+	marked[c] = visited
+	for _, v := range graph[c] {
+		if !dfs(v, marked, graph) {
+			return false
+		}
+	}
+	marked[c] = sorted
+	return true
 }
 
 func makeGraph(numCourses int, prerequisites [][]int) [][]int {
