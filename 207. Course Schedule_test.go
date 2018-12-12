@@ -32,6 +32,15 @@ func Test_canFinish(t *testing.T) {
 			},
 			want: true,
 		},
+		{
+			args: args{
+				numCourses: 2,
+				prerequisites: [][]int{
+					[]int{0, 1},
+				},
+			},
+			want: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
