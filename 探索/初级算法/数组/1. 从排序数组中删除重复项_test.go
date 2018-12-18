@@ -23,7 +23,7 @@ func Test_removeDuplicates(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := removeDuplicates(tt.args.nums); got != tt.want {
-				t.Errorf("removeDuplicates() = %v, want %v", got, tt.want, tt.args.nums)
+				t.Errorf("removeDuplicates() = %v, want %v %v", got, tt.want, tt.args.nums)
 			}
 		})
 	}
