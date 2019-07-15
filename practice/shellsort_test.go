@@ -24,7 +24,7 @@ func Test_shellsort(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			shellsort(tt.args.array)
+			shellSort(tt.args.array)
 			if !IsSorted(tt.args.array, 1) {
 				t.Error(tt.args.array)
 			}

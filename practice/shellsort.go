@@ -1,18 +1,25 @@
 package practice
 
-func shellsort(array []int) {
-	n := len(array)
+func insertSort(a []int) {
+	for i := 1; i < len(a); i++ {
+		for j := i - 1; j >= 0 && a[j] > a[j+1]; j-- {
+			a[j], a[j+1] = a[j+1], a[j]
+		}
+	}
+}
+
+func shellSort(a []int) {
 	h := 1
-	// 1, 4, 13
-	for h < n/3 {
-		h = 3*h + 1
+	n := len(a)
+	for h*3+1 < n {
+		h = h*3 + 1
 	}
 	for h >= 1 {
-		for i := h; i < len(array); i = i + h {
-			for j := i - h; j >= 0 && array[j] > array[j+h]; j = j - h {
-				array[j], array[j+1] = array[j+1], array[j]
+		for i := h; i < n; i++ {
+			for j := i; j-h >= 0 && a[j] < a[j-h]; j -= h {
+				a[j], a[j-h] = a[j-h], a[j]
 			}
 		}
-		h = h / 3
+		h /= 3
 	}
 }
