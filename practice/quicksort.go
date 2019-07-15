@@ -11,16 +11,19 @@ func quicksort(nums []int, low, high int) {
 }
 
 func quickPartition(nums []int, low, high int) int {
-	pivot := nums[low]
 	i, j := low, high
-	for i < j {
-		for ; i < j && nums[i] < pivot; i++ {
+	v := nums[i]
+	for true {
+		for nums[i] < v && i < high {
+			i++
 		}
-		for ; j > i && nums[j] > pivot; j-- {
+		for nums[j] > v && j > low {
+			j--
 		}
-		if i < j {
-			nums[i], nums[j] = nums[j], nums[i]
+		if i >= j {
+			break
 		}
+		nums[i], nums[j] = nums[j], nums[i]
 	}
 	nums[j], nums[low] = nums[low], nums[j]
 	return j

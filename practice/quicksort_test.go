@@ -20,6 +20,13 @@ func Test_quicksort(t *testing.T) {
 				high: 7,
 			},
 		},
+		{
+			args: args{
+				nums: []int{2, 2, 2},
+				low:  0,
+				high: 2,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
