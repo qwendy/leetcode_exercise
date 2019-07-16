@@ -1,7 +1,8 @@
 package practice
 
 func quicksort(nums []int, low, high int) {
-	if low >= high {
+	if low+15 >= high {
+		insertSort(nums, low, high)
 		return
 	}
 	p := quickPartition(nums, low, high)
@@ -11,20 +12,6 @@ func quicksort(nums []int, low, high int) {
 }
 
 func quickPartition(nums []int, low, high int) int {
-	i, j := low, high
-	v := nums[i]
-	for true {
-		for nums[i] < v && i < high {
-			i++
-		}
-		for nums[j] > v && j > low {
-			j--
-		}
-		if i >= j {
-			break
-		}
-		nums[i], nums[j] = nums[j], nums[i]
-	}
-	nums[j], nums[low] = nums[low], nums[j]
-	return j
+	i, lt, gt := low, low+1, high
+
 }

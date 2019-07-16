@@ -1,7 +1,7 @@
 package practice
 
-func insertSort(a []int) {
-	for i := 1; i < len(a); i++ {
+func insertSort(a []int, low, high int) {
+	for i := low + 1; i < high && i < len(a); i++ {
 		for j := i - 1; j >= 0 && a[j] > a[j+1]; j-- {
 			a[j], a[j+1] = a[j+1], a[j]
 		}
