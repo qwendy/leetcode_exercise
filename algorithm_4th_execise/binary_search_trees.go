@@ -1,6 +1,8 @@
 package practice
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type node struct {
 	key   interface{}
@@ -77,8 +79,56 @@ func (bst *binarySearchTree) putNode(key, val interface{}, x *node) *node {
 		x.val = val
 	}
 	x.N = bst.size(x.left) + bst.size(x.right) + 1
+	x = bst.balance(x)
 	return x
 }
+
+func (bst *binarySearchTree) balance(x *node) *node {
+	if x == nil {
+		return nil
+	}
+	if bst.size(x.left)-bst.size(x.right) > 1 {
+		if bst.size(x.left.left) < bst.size(x.left.right) {
+			t := x.left
+			x.left = t.right
+			t.right.left = t
+			t.right = nil
+		}
+		x = bst.leftRotate(x)
+	}
+	if bst.size(x.right)-bst.size(x.left) > 1 {
+		if bst.size(x.right.left) > bst.size(x.right.right) {
+			t := x.right
+			x.right = t.left
+			t.left.right = t
+			t.left = nil
+		}
+		x = bst.rightRotate(x)
+	}
+	return x
+}
+
+func (bst *binarySearchTree) leftRotate(x *node) *node {
+	t := x.left
+	right := t
+	if right.right != nil {
+		right = right.right
+	}
+	right.right = x
+	x.left = nil
+	return t
+}
+func (bst *binarySearchTree) rightRotate(x *node) *node {
+	t := x.right
+	maxLeft := t
+	if maxLeft.left != nil {
+		maxLeft = maxLeft.left
+	}
+	maxLeft.left = x
+	x.right = nil
+	return t
+}
+
 func (bst *binarySearchTree) min(x *node) *node {
 	if x == nil {
 		return x
