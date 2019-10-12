@@ -7,7 +7,7 @@ import (
 
 func Test_redBlackBST_putNode(t *testing.T) {
 	rb := &redBlackBST{}
-	for i, v := range []int{3, 1, 4, 1, 5, 9, 2, 6} {
+	for i, v := range []int{1, 2, 3, 4, -1, -2, -3, -4} {
 		rb.put(v, i)
 
 		array := make([]interface{}, 0)
