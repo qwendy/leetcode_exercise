@@ -111,6 +111,7 @@ func (rb *redBlackBST) leftRotate(x *node) *node {
 	y.N, x.N = rb.height(x), rb.height(y)
 	x.color = RED
 	x.right = nil
+	y.color = BLACK
 	return y
 }
 
