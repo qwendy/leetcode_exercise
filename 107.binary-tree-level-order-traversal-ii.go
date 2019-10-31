@@ -50,27 +50,30 @@
  */
 package practice
 
-func bfs(s *[][]int, level int, root *TreeNode) {
-	if root == nil {
-		return
-	}
-	if len(*s) == level {
-		*s = append(*s, []int{})
-	}
-	(*s)[level] = append((*s)[level], root.Val)
-	for _, v := range []*TreeNode{root.Left, root.Right} {
-		bfs(s, level+1, v)
-	}
-}
-
 func levelOrderBottom(root *TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}
 	}
 	var s [][]int
-	bfs(&s, 0, root)
+	stack := make([]*TreeNode, 1)
+	stack[0] = root
+	for len(stack) > 0 {
+		levelResult := make([]int, 0)
+		var newStack []*TreeNode
+		for i := 0; i < len(stack); i++ {
+			levelResult = append(levelResult, stack[i].Val)
+			if stack[i].Left != nil {
+				newStack = append(newStack, stack[i].Left)
+			}
+			if stack[i].Right != nil {
+				newStack = append(newStack, stack[i].Right)
+			}
+		}
+		s = append(s, levelResult)
+		stack = newStack
+	}
 	for i := 0; i < len(s)/2; i++ {
-		s[i], s[len(s)-i-1] = s[len(s)-i-1], s[i]
+		s[i], s[len(s)-i-1] = s[len(s)-1-i], s[i]
 	}
 	return s
 }
