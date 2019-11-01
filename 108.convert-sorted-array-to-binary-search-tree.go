@@ -49,51 +49,17 @@
 package practice
 
 func sortedArrayToBST(nums []int) *TreeNode {
-	head := &TreeNode{}
-	for i := 0; i < len(nums); i++ {
-		head = insertBinarySearchTree(nums[i], head)
+	if len(nums) == 0 {
+		return nil
 	}
-	return head
-}
-func insertBinarySearchTree(value int, root *TreeNode) *TreeNode {
-	if root == nil {
-		return &TreeNode{Val: value}
+	mid := len(nums) / 2
+	left := sortedArrayToBST(nums[:mid])
+	right := sortedArrayToBST(nums[mid+1:])
+	return &TreeNode{
+		Val:   nums[mid],
+		Left:  left,
+		Right: right,
 	}
-	if value < root.Val {
-		root = insertBinarySearchTree(value, root.Left)
-	}
-	if value > root.Val {
-		root = insertBinarySearchTree(value, root.Right)
-	}
-	if root.Left != nil && root.Left.Left != nil {
-		root = rightRotate(root)
-	}
-	if root.Right != nil && root.Right.Right != nil {
-		root = leftRotate(root)
-	}
-	if root.Left != nil && root.Left.Right != nil {
-		root.Left.Left = root.Left.Right
-		root.Left.Right = nil
-	}
-	if root.Right != nil && root.Right.Left != nil {
-		root.Right.Right = root.Right.Left
-		root.Right.Left = nil
-	}
-	return root
-}
-
-func rightRotate(root *TreeNode) *TreeNode {
-	x := root.Left
-	root.Left = x.Right
-	x.Right = root
-	return x
-}
-
-func leftRotate(root *TreeNode) *TreeNode {
-	x := root.Right
-	root.Right = x.Left
-	x.Left = root
-	return x
 }
 
 // @lc code=end
