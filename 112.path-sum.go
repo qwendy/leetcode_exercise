@@ -60,10 +60,7 @@ func calSum(curSum, sum int, root *TreeNode) bool {
 		return false
 	}
 	curSum = root.Val + curSum
-	if curSum > sum {
-		return false
-	}
-	if curSum == sum {
+	if curSum == sum && root.Left == nil && root.Right == nil {
 		return true
 	}
 	if calSum(curSum, sum, root.Left) {
