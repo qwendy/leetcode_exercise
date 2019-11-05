@@ -48,19 +48,18 @@ func maxProfit(prices []int) int {
 	if len(prices) == 0 {
 		return 0
 	}
-	minIndex, maxIndex := 0, 0
+	minPrice := prices[0]
+	maxProfit := 0
 	for i := 1; i < len(prices); i++ {
-		if minIndex == maxIndex {
-			for j := i; i < len(prices); i++ {
-				if prices[j] > prices[i] {
-					maxIndex = j
-				}
-			}
+		if prices[i] < minPrice {
+			minPrice = prices[i]
 		} else {
-			return
+			if prices[i]-minPrice > maxProfit {
+				maxProfit = prices[i] - minPrice
+			}
 		}
 	}
-	return 0
+	return maxProfit
 }
 
 // @lc code=end
