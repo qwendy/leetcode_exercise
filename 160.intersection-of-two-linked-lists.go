@@ -93,20 +93,7 @@
 package practice
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-<<<<<<< HEAD
-	if headA ==nil {
-		return headB
-	}
-	if headB == nil {
-		return headA
-	}
-
-
-
-    return nil
-=======
 	return nil
->>>>>>> de04e959ab40920d90d6702d1f3147baec4fe6c8
 }
 
 // @lc code=end
