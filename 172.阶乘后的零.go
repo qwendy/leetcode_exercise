@@ -6,13 +6,15 @@
 
 // @lc code=start
 package practice
-func trailingZeroes(n int) int {
-	count := 0
-	tail := 1
-	for i:=2; i< n ; i++ {
-		return 
-	} 
-	return count
-}
-// @lc code=end
 
+func trailingZeroes(n int) int {
+	fiveCount := 0
+	i := 1
+	for i*5 <= n {
+		i *= 5
+		fiveCount += n / i
+	}
+	return fiveCount
+}
+
+// @lc code=end
