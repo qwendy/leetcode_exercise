@@ -13,9 +13,9 @@ func Test_convertToTitle(t *testing.T) {
 	}{
 		{
 			args: args{
-				n: 26,
+				n: 27,
 			},
-			want: "Z",
+			want: "AA",
 		},
 	}
 	for _, tt := range tests {

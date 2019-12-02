@@ -62,6 +62,7 @@ func convertToTitle(n int) string {
 		} else {
 			result = string(int('A')+value-1) + result
 		}
+		n--
 		n /= 26
 	}
 	return result

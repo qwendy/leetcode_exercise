@@ -93,7 +93,56 @@
 package practice
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	if headB == nil || headA == nil {
+		return nil
+	}
+	p1 := headA
+	for p1.Next != nil {
+		p1 = p1.Next
+	}
+	tail := p1
+	p1.Next = headB
+	p1 = headA
+	p2 := headA
+	for p1 != nil && p1.Next != nil && p2 != nil && p2.Next != nil && p2.Next.Next != nil {
+		p1 = p1.Next
+		p2 = p2.Next.Next
+		if p1 == p2 {
+			for {
+				if headA == p2 {
+					tail.Next = nil
+					return headA
+				}
+				headA = headA.Next
+				p2 = p2.Next
+			}
+		}
+	}
+	tail.Next = nil
 	return nil
+}
+
+// better method
+func getIntersectionNode_v2(headA, headB *ListNode) *ListNode {
+	p1 := headA
+	p2 := headB
+	if p1 == nil || p2 == nil {
+		return nil
+	}
+	for p1 != nil && p2 != nil && p1 != p2 {
+		p1 = p1.Next
+		p2 = p2.Next
+		if p1 == p2 {
+			return p1
+		}
+		if p1 == nil {
+			p1 = headB
+		}
+		if p2 == nil {
+			p2 = headA
+		}
+	}
+	return p1
 }
 
 // @lc code=end
