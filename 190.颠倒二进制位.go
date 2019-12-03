@@ -2,6 +2,7 @@
  * @lc app=leetcode.cn id=190 lang=golang
  *
  * [190] 颠倒二进制位
+<<<<<<< HEAD
  *
  * https://leetcode-cn.com/problems/reverse-bits/description/
  *
@@ -61,3 +62,21 @@ func reverseBits(num uint32) uint32 {
 }
 // @lc code=end
 
+=======
+ */
+
+package practice
+
+// @lc code=start
+func reverseBits(num uint32) uint32 {
+	var sum uint32
+	for i := 0; i < 32; i++ {
+		sum = sum << 1
+		sum += num % 2
+		num = num / 2
+	}
+	return sum
+}
+
+// @lc code=end
+>>>>>>> afe370cb07d2388fc9742f35a90288777a98595d
