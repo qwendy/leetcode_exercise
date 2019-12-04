@@ -4,25 +4,21 @@
  * [12] 整数转罗马数字
  */
 
-// @lc code=start
 package practice
 
-import "bytes"
+// @lc code=start
 
 func intToRoman(num int) string {
-	var result bytes.Buffer
-	var nums = []int{1, 5, 10, 50, 100, 500, 1000}
-	var chars = []byte{'I', 'V', 'X', 'L', 'C', 'D', 'M'}
-	for i := len(nums) - 1; i >= 0; i-- {
-		if num > nums[i] {
-			if i%2 != 0 {
-
-			} else {
-
-			}
+	var result = ""
+	var nums = []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	var chars = []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+	for i := 0; i < len(nums); i++ {
+		for num >= nums[i] {
+			result += chars[i]
+			num -= nums[i]
 		}
 	}
-	return result.String()
+	return result
 }
 
 // @lc code=end

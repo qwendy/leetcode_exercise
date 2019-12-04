@@ -4,8 +4,9 @@
  * [191] 位1的个数
  */
 
-// @lc code=start
 package practice
+
+// @lc code=start
 
 func hammingWeight(num uint32) int {
 	count := 0
