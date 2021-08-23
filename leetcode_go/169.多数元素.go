@@ -30,22 +30,23 @@
  *
  */
 package practice
+
 // @lc code=start
 func majorityElement(nums []int) int {
 	max := nums[0]
 	count := 1
-	for i:=1 ; i< len(nums); i++ {
+	for i := 1; i < len(nums); i++ {
 		if max != nums[i] {
-			if count ==1 {
+			if count == 1 {
 				max = nums[i]
-			}else {
+			} else {
 				count--
 			}
-		}else {
+		} else {
 			count++
 		}
 	}
 	return max
 }
-// @lc code=end
 
+// @lc code=end
