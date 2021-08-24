@@ -1,7 +1,6 @@
 package practise
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -55,23 +54,15 @@ func eraseOverlapIntervals(intervals [][]int) int {
 		return 0
 	}
 	sort.Slice(intervals, func(i, j int) bool {
-		if intervals[i][0] == intervals[j][0] {
-			return intervals[i][1] < intervals[j][1]
-		}
-		return intervals[i][0] < intervals[j][0]
+		return intervals[i][1] < intervals[j][1]
 	})
-	fmt.Println(intervals)
 	count := 0
-	last := intervals[0]
+	last := intervals[0][1]
 	for i := 1; i < len(intervals); i++ {
-		if intervals[i][0] < last[1] {
+		if intervals[i][0] < last {
 			count++
-			last = intervals[i-1]
-			if intervals[i][1] < intervals[i-1][1] {
-				last = intervals[i]
-			}
 		} else {
-			last = intervals[i]
+			last = intervals[i][1]
 		}
 
 	}
