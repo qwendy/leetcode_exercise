@@ -1,6 +1,9 @@
 package practise
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 //Non-overlapping Intervals
 ////Given an array of intervals intervals where intervals[i] = [starti, endi], ret
@@ -57,6 +60,7 @@ func eraseOverlapIntervals(intervals [][]int) int {
 		}
 		return intervals[i][0] < intervals[j][0]
 	})
+	fmt.Println(intervals)
 	count := 0
 	last := intervals[0]
 	for i := 1; i < len(intervals); i++ {
