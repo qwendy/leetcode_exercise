@@ -51,39 +51,21 @@
 package practise
 
 import (
-	"fmt"
 	"sort"
 )
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reconstructQueue(people [][]int) [][]int {
 	sort.Slice(people, func(i, j int) bool {
-		if people[i][1] == people[j][1] {
-			return people[i][0] < people[j][0]
-		}
-		return people[i][1] < people[j][1]
-	})
-	for i := 0; i < len(people); i++ {
-		if people[i][1] == 0 {
-			continue
-		}
-		count := 0
-		fmt.Println(i, people)
-		for j := 0; j < i; j++ {
-			if people[j][0] >= people[i][0] {
-				count++
-				if count > people[i][1] {
-					temp := people[i]
-					for k := i; k >= j; k-- {
-						people[k] = people[k-1]
-					}
-					people[j] = temp
-				}
-			}
-		}
 
+		return people[i][0] > people[j][0] ||
+			(people[i][0] == people[j][0] && people[i][1] < people[j][1])
+	})
+	result := make([][]int, 0)
+	for _, v := range people {
+		result = append(result[:v[1]], append([][]int{v}, result[v[1]:]...)...)
 	}
-	return people
+	return result
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
