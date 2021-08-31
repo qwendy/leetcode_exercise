@@ -1,17 +1,21 @@
 package practise
 
 func canCompleteCircuit(gas []int, cost []int) int {
-	start := -1
-	for i := 0; i < 2*len(gas)-1; i++ {
+	for i := 0; i < len(gas); i++ {
 		sum := 0
-		j := i
-		for ; j < len(gas)+i; j++ {
-			index := j % len(gas)
+		count := 0
+		for ; count < len(gas); count++ {
+			index := (count + i) % len(gas)
 			sum += gas[index] - cost[index]
 			if sum < 0 {
 				break
 			}
 		}
+		if count == len(gas) {
+			return i
+		} else {
+			i = i + count
+		}
 	}
-	return start
+	return -1
 }
