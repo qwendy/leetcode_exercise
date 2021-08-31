@@ -33,30 +33,31 @@ package practise
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func removeDuplicateLetters(s string) string {
-	if len(s) == 1 {
-		return s
+	left := make([]int, 26)
+	for _, v := range s {
+		left[int(v)-'a']++
 	}
-	exist := make([]int, 26)
-	mark := make([]bool, len(s))
-	for i := 0; i < len(exist); i++ {
-		exist[i] = -1
-	}
-	for i, v := range s {
-		if exist[int(v)-'a'] != -1 {
-			mark[i] = true
-			mark[int(v)-'a'] = true
-			exist[int(v)-'a'] = i
-		} else {
-			exist[int(v)-'a'] = i
+	inStack := make([]bool, 26)
+	stack := make([]byte, 26)
+	stackLen := 0
+	for i, _ := range s {
+		v := s[i]
+		if !inStack[int(v)-'a'] {
+			for stackLen > 0 && stack[stackLen-1] > v {
+				sv := stack[stackLen-1]
+				if left[int(sv)-'a'] == 0 {
+					break
+				}
+				inStack[int(sv)-'a'] = false
+				stackLen--
+			}
+			stackLen++
+			stack[stackLen-1] = v
+			inStack[int(v)-'a'] = true
 		}
+		left[int(v)-'a']--
 	}
-	r := ""
-	for i, v := range s {
-		if mark[i] {
-			r += string(v)
-		}
-	}
-	return r
+	return string(stack[:stackLen])
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
