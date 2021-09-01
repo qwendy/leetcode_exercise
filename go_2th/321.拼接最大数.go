@@ -1,6 +1,8 @@
 package practise
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //拼接最大数
 ////给定长度分别为 m 和 n 的两个数组，其元素由 0-9 构成，表示两个自然数各位上的数字。现在从这两个数组中选出 k (k <= m + n) 个数字拼接
@@ -99,7 +101,6 @@ func merge(a, b []int) []int {
 		if a[indexA] > b[indexB] {
 			result = append(result, a[indexA])
 			indexA++
-		} else if a[indexA] < indexB {
 			result = append(result, b[indexB])
 			indexB++
 		} else {
@@ -110,8 +111,8 @@ func merge(a, b []int) []int {
 		}
 
 	}
-	result = append(result, a[indexA:]...)
 	result = append(result, b[indexB:]...)
+	result = append(result, a[indexA:]...)
 	return result
 }
 
